@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Project"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintVertical_weight="0.1"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Project Name EditText -->
+    <EditText
+        android:id="@+id/etUpdateProjectName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Project Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintVertical_weight="0.2"
+        android:layout_marginTop="16dp" />
+
+    <!-- Description EditText -->
+    <EditText
+        android:id="@+id/etUpdateDescription"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:hint="Project Description"
+        android:textSize="16sp"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etUpdateProjectName"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintVertical_weight="0.4"/>
+
+    <!-- Deadline TextView -->
+    <TextView
+        android:id="@+id/tvUpdateDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Deadline"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etUpdateDescription"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintVertical_weight="0.5"/>
+
+    <!-- Update Button -->
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUpdateDeadline"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintVertical_weight="0.7"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">lab2</string>
+    <string name="freelancer_toolkit">Freelancer Toolkit</string>
+    <string name="add_new_project">Add New Project</string>
+    <string name="project_name">Project Name</string>
+    <string name="deadline">Deadline</string>
+    <string name="delete_selected">Delete Selected</string>
+</resources>
