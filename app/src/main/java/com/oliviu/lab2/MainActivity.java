@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Project> projectList;
@@ -273,11 +272,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void scheduleDeadlineWorker() {
-        OneTimeWorkRequest deadlineWorkRequest = new OneTimeWorkRequest.Builder(DeadlineWorker.class)
-                .setInitialDelay(1, TimeUnit.HOURS) // Adjust delay as needed
-                .build();
+        WorkManager.getInstance(this).cancelAllWork();
 
-        WorkManager.getInstance(this).enqueue(deadlineWorkRequest);
+        WorkManager.getInstance(this)
+                .enqueue(OneTimeWorkRequest.from(DeadlineWorker.class));
     }
 
     @Override

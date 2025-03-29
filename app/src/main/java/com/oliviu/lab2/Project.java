@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class Project {
     private String projectName;
@@ -35,7 +36,9 @@ public class Project {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
         try {
             Date date = dateFormat.parse(deadline);  // Parsing the date string
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));  // or the time zone your date string is in
             if (date != null) {
+                Log.d("DeadlineNotificationService", "Parsed deadline: " + date.toString());
                 return date.getTime();  // Return the time in milliseconds
             }
         } catch (ParseException e) {
