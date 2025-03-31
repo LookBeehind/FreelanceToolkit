@@ -23,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean isMultiSelectMode = false;
     private final Set<Integer> selectedItems = new HashSet<>();
     private Button btnDeleteSelected;
+
+    private EditText etSearch;
+    private ListView lvProjects;
 
     private final ActivityResultLauncher<Intent> addActivityLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -149,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         lvProjects.setAdapter(adapter);
 
         // Load projects from JSON file after initializing adapter
-        loadProjectsFromJsonFile();
+        loadProjectsFromJsonFile("");
 
         // Button click listener to navigate to AddActivity
         Button btnAddProject = findViewById(R.id.btnAddProject);
@@ -210,6 +215,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        etSearch = findViewById(R.id.etSearch);
+        ImageButton btnSearch = findViewById(R.id.searchButton);
+
+        // Set click listener for the search button
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSearch();
+            }
+        });
+
     }
 
     private void handleSaveOrUpdate(String projectName, String description, String deadline, int position) {
@@ -245,22 +261,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadProjectsFromJsonFile() {
+    public void onSearch() {
+        String query = etSearch.getText().toString().trim();
+        loadProjectsFromJsonFile(query);
+    }
+
+    public void loadProjectsFromJsonFile(String query) {
         File file = new File(getExternalFilesDir(null), "projects.json");
 
         if (file.exists()) {
             Gson gson = new Gson();
             try (FileReader reader = new FileReader(file)) {
-                Type projectListType = new TypeToken<ArrayList<Project>>() {
-                }.getType();
+                Type projectListType = new TypeToken<ArrayList<Project>>() {}.getType();
                 ArrayList<Project> loadedProjects = gson.fromJson(reader, projectListType); // Deserialize JSON
 
-                // Clear the current list and add all loaded projects
-                projectList.clear();
-                projectList.addAll(loadedProjects);
+                // Filter projects if a query is provided
+                ArrayList<Project> filteredProjects = new ArrayList<>();
+                if (query != null && !query.isEmpty()) {
+                    for (Project project : loadedProjects) {
+                        // Assuming Project class has a getName() method for filtering
+                        if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
+                            filteredProjects.add(project);
+                        }
+                    }
+                } else {
+                    filteredProjects.addAll(loadedProjects);
+                }
 
-                adapter.notifyDataSetChanged();  // Refresh the adapter
-                Log.d("MainActivity", "Projects loaded successfully.");
+                // Update the project list and refresh the adapter
+                projectList.clear();
+                projectList.addAll(filteredProjects);
+                adapter.notifyDataSetChanged();
+
+                Log.d("MainActivity", "Projects loaded successfully with filter: " + query);
             } catch (IOException e) {
                 Log.e("loadProjectsFromJsonFile", "Error reading JSON file: " + e);
                 Toast.makeText(this, "Error loading projects from file", Toast.LENGTH_SHORT).show();

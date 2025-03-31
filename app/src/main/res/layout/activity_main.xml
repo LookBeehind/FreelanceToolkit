@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,33 +10,56 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/freelancer_toolkit"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center" />
+        android:textStyle="bold" />
 
     <!-- Add Project Button -->
     <Button
         android:id="@+id/btnAddProject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_new_project"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="@string/add_new_project" />
+
+    <!-- Horizontal Layout for Search Bar and Search Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:hint="Search project" />
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+    </LinearLayout>
 
     <!-- List of Projects -->
     <ListView
         android:id="@+id/lvProjects"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:layout_weight="1" />
 
     <!-- Delete Selected Button -->
     <Button
         android:id="@+id/btnDeleteSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/delete_selected"
-        android:visibility="gone"
-        android:layout_marginTop="8dp" />
+        android:visibility="gone" />
+
 </LinearLayout>
